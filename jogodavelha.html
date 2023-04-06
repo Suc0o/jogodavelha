@@ -4,54 +4,75 @@
 		<!-- A linha abaixo ativa os caracteres especiais -->
 		<meta charset="UTF-8">
 		<title>Jogo da Velha</title>
+
+    <!-- Aqui usei a tag 'style' para abrir o conteúdo de CSS-->
+    
 		<style>
+      
 		/* Essa classe cria um quadrado */
 		.square {
-		  width: 30px;
-		  height: 30px;
-		  border: 1px solid black;
+		  width: 150px;
+		  height: 150px;
+		  border: 2px solid black;
 		  float: left;
 		  text-align: center;
 		}
 
 		/* Essa classe deixa os quadrados na mesma linha */
-		.row {
+		.coluna {
 		  clear: both;
 		}
+
+    .XO {
+      width: 15px;
+      height: 15px;
+      text-font: Fantasy;
+    }
+      
 		</style>
+    
 	</head>
 	<body>
-		<div class="row">
+    
+		<div class="coluna">
 			<div class="square" id="square1"></div>
 			<div class="square" id="square2"></div>
 			<div class="square" id="square3"></div>
 		</div>
-		<div class="row">
+		<div class="coluna">
 			<div class="square" id="square4"></div>
 			<div class="square" id="square5"></div>
 			<div class="square" id="square6"></div>
 		</div>
-		<div class="row">
+		<div class="coluna">
 			<div class="square" id="square7"></div>
 			<div class="square" id="square8"></div>
 			<div class="square" id="square9"></div>
 		</div>
-    <br> <br>
+    
+    <br>
+    <br>
+    
     <button onclick="startGame()">Jogue Novamente</button>
-    <br> <br>
+    
+    <br>
+    <br>
+    
       <div id = "Mensagem"></div>
-		<script>
-		// Jogo da velha em JavaScript
 
-		// Tabuleiro representado por um array
+   <!-- Aqui abri a tag 'script' para -->
+    
+		<script>
+	
+		// Tabuleiro representado por uma matriz
 		var board = [] 
 
-		// Variável que diz se a vez de jogar é do usuário
+		// Variável dos turnos
 		var userTurn = true;
 
     var compTurn = false
       
-		// Essa função vai atualizar o tabuleiro
+		// Essa função vai atualizar o tabuleiro no HTML
 		function updateBoard() {
 			for (var i = 0; i < board.length; i++) {
 				document.getElementById("square" + (i + 1)).innerText = board[i];
@@ -73,15 +94,13 @@
       return vazios;
 		}
 		
-		// Essa função vai ser chamada quando a vez for do computador
+		// Função referente ao turno do computador
 		function computerTurn() {
 
       var jogada = 0;
       var v = vazio();
       
       jogada = v[Math.floor(Math.random() * v.length)];
-        
-      console.log(v);
   
       if(v.length > 0){
 
@@ -89,7 +108,6 @@
         
       updateBoard();
         
-      console.log(board)
       }
       vitoria("o");
       
@@ -98,16 +116,18 @@
      
 		}
 
+    //essa função vai verificar se há uma vitória
+      
     function vitoria(jogador){
 
-      // verifcações vitória horizontais //
+      // verifcações de vitória horizontais //
       
-     if((board[0] == jogador && board[1] == jogador
-     && board[2] == jogador) || (board[3] == jogador && board[4] == jogador
-     && board[5] == jogador) || (board[6] == jogador && board[7] == jogador
-     && board[8] == jogador)){
+     if((board[0] == jogador && board[1] == jogador && board[2] 
+     == jogador)|| (board[3] == jogador && board[4] == jogador
+     && board[5] == jogador) || (board[6] == jogador && board[7]
+     == jogador && board[8] == jogador)){
 
-      // verificações vitória verticais //
+      // verificações de vitória verticais //
        
         if(jogador == "X"){
          document.getElementById("Mensagem").innerText = "Fim de Jogo - Vitória";
@@ -120,9 +140,10 @@
      }   
 
        // verificações de vitória diagonais //
-     else if((board[0] == jogador && board[3] == jogador &&
-     board[6] == jogador) || (board[1] == jogador && board[4] == jogador && board[7] == 
-     jogador) || (board[2] == jogador && board[5] == jogador && board[8] == jogador)){
+        else if((board[0] == jogador && board[3] == jogador &&
+        board[6] == jogador) || (board[1] == jogador && board[4] 
+        == jogador && board[7] == jogador) || (board[2] == jogador
+        && board[5] == jogador && board[8] == jogador)){
 
        if(jogador == "X"){
          document.getElementById("Mensagem").innerText = "Fim de Jogo - Vitória";
@@ -132,8 +153,8 @@
           document.getElementById("Mensagem").innerText = "Fim de Jogo - Derrota";
         } 
      }
-      else if((board[0] == jogador && board[4] == jogador && board[8] == jogador) || (board[2] 
-     == jogador && board[4] == jogador && board[6] == jogador)){
+      else if((board[0] == jogador && board[4] == jogador && board[8] == jogador) 
+      || (board[2] == jogador && board[4] == jogador && board[6] == jogador)){
 
          if(jogador == "X"){
          document.getElementById("Mensagem").innerText = "Fim de Jogo - Vitória";
@@ -148,11 +169,13 @@
 
 
 		function click(i) {
+      
 			// Pega o valor do quadrado
 			var square = board[i];
 
 			// Verifica se o quadrado está vazio e se o turno é do usuário
 			if (square.length == 0 && userTurn) {
+        
 				// Atualiza o tabuleiro
 				board[i] = "X";
         vitoria("X");
@@ -160,17 +183,22 @@
         
 				// Turno do computador
 				userTurn = false;
-        
 				computerTurn();
         
 			}
 		}
 
 		// Função que inicia o jogo
+      
 		function startGame() {
-			// Limpa o tabuleiro
+      
+			// Limpa o tabuleiro no JS e no HTML
+      
 			board = ["", "", "", "", "", "", "", "", ""];
       updateBoard();
+
+     //limpa a mensagem de vitória ou derrota
+      
       document.getElementById("Mensagem").innerText = "";
 		}
 
@@ -187,12 +215,8 @@
 
 		// Inicia o jogo
 		startGame();
+      
 		</script>
+    
 	</body>
 </html>
-
-<!--Melhorar visual
- Formatar código
- comentar código
- melhorar IA
- Adicionar função para exibir o vencedor (pra não ficar sujo)
