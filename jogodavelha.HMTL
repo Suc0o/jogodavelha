@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- A linha abaixo ativa os caracteres especiais -->
+		<meta charset="UTF-8">
+		<title>Jogo da Velha</title>
+		<style>
+		/* Essa classe cria um quadrado */
+		.square {
+		  width: 30px;
+		  height: 30px;
+		  border: 1px solid black;
+		  float: left;
+		  text-align: center;
+		}
+
+		/* Essa classe deixa os quadrados na mesma linha */
+		.row {
+		  clear: both;
+		}
+		</style>
+	</head>
+	<body>
+		<div class="row">
+			<div class="square" id="square1"></div>
+			<div class="square" id="square2"></div>
+			<div class="square" id="square3"></div>
+		</div>
+		<div class="row">
+			<div class="square" id="square4"></div>
+			<div class="square" id="square5"></div>
+			<div class="square" id="square6"></div>
+		</div>
+		<div class="row">
+			<div class="square" id="square7"></div>
+			<div class="square" id="square8"></div>
+			<div class="square" id="square9"></div>
+		</div>
+    <br> <br>
+    <button onclick="startGame()">Jogue Novamente</button>
+    <br> <br>
+      <div id = "Mensagem"></div>
+		<script>
+		// Jogo da velha em JavaScript
+
+		// Tabuleiro representado por um array
+		var board = [] 
+
+		// Variável que diz se a vez de jogar é do usuário
+		var userTurn = true;
+
+    var compTurn = false
+      
+		// Essa função vai atualizar o tabuleiro
+		function updateBoard() {
+			for (var i = 0; i < board.length; i++) {
+				document.getElementById("square" + (i + 1)).innerText = board[i];
+			}
+		}
+		
+		// Essa função vai procurar por um espaço vazio no tabuleiro
+		function vazio() {
+      
+			var vazios = [];
+
+      for(var i = 0; i < board.length; i++){
+
+       if(board[i].length == 0){
+         vazios.push(i);
+       }
+        
+      }
+      return vazios;
+		}
+		
+		// Essa função vai ser chamada quando a vez for do computador
+		function computerTurn() {
+
+      var jogada = 0;
+      var v = vazio();
+      
+      jogada = v[Math.floor(Math.random() * v.length)];
+        
+      console.log(v);
+  
+      if(v.length > 0){
+
+      board[jogada] = "o";
+        
+      updateBoard();
+        
+      console.log(board)
+      }
+      vitoria("o");
+      
+			// Turno do usuário //
+			userTurn = true;
+     
+		}
+
+    function vitoria(jogador){
+
+      // verifcações vitória horizontais //
+      
+     if((board[0] == jogador && board[1] == jogador
+     && board[2] == jogador) || (board[3] == jogador && board[4] == jogador
+     && board[5] == jogador) || (board[6] == jogador && board[7] == jogador
+     && board[8] == jogador)){
+
+      // verificações vitória verticais //
+       
+        if(jogador == "X"){
+         document.getElementById("Mensagem").innerText = "Fim de Jogo - Vitória";
+     }
+
+        else{
+          document.getElementById("Mensagem").innerText = "Fim de Jogo - Derrota";
+        } 
+       
+     }   
+
+       // verificações de vitória diagonais //
+     else if((board[0] == jogador && board[3] == jogador &&
+     board[6] == jogador) || (board[1] == jogador && board[4] == jogador && board[7] == 
+     jogador) || (board[2] == jogador && board[5] == jogador && board[8] == jogador)){
+
+       if(jogador == "X"){
+         document.getElementById("Mensagem").innerText = "Fim de Jogo - Vitória";
+     }
+
+        else{
+          document.getElementById("Mensagem").innerText = "Fim de Jogo - Derrota";
+        } 
+     }
+      else if((board[0] == jogador && board[4] == jogador && board[8] == jogador) || (board[2] 
+     == jogador && board[4] == jogador && board[6] == jogador)){
+
+         if(jogador == "X"){
+         document.getElementById("Mensagem").innerText = "Fim de Jogo - Vitória";
+     }
+
+        else{
+          document.getElementById("Mensagem").innerText = "Fim de Jogo - Derrota";
+        } 
+      }
+      
+    }
+
+
+		function click(i) {
+			// Pega o valor do quadrado
+			var square = board[i];
+
+			// Verifica se o quadrado está vazio e se o turno é do usuário
+			if (square.length == 0 && userTurn) {
+				// Atualiza o tabuleiro
+				board[i] = "X";
+        vitoria("X");
+				updateBoard();
+        
+				// Turno do computador
+				userTurn = false;
+        
+				computerTurn();
+        
+			}
+		}
+
+		// Função que inicia o jogo
+		function startGame() {
+			// Limpa o tabuleiro
+			board = ["", "", "", "", "", "", "", "", ""];
+      updateBoard();
+      document.getElementById("Mensagem").innerText = "";
+		}
+
+		// Registra os eventos do jogo
+		document.getElementById("square1").onclick = function () { click(0) }
+		document.getElementById("square2").onclick = function () { click(1) }
+		document.getElementById("square3").onclick = function () { click(2) }
+		document.getElementById("square4").onclick = function () { click(3) }
+		document.getElementById("square5").onclick = function () { click(4) }
+		document.getElementById("square6").onclick = function () { click(5) }
+		document.getElementById("square7").onclick = function () { click(6) }
+		document.getElementById("square8").onclick = function () { click(7) }
+		document.getElementById("square9").onclick = function () { click(8) }
+
+		// Inicia o jogo
+		startGame();
+		</script>
+	</body>
+</html>
