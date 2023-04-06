@@ -8,6 +8,12 @@
     <!-- Aqui usei a tag 'style' para abrir o conteúdo de CSS-->
     
 		<style>
+
+    body{
+
+      background-color: #313338;
+      color: white;
+    }
       
 		/* Essa classe cria um quadrado */
 		.square {
@@ -16,6 +22,7 @@
 		  border: 2px solid black;
 		  float: left;
 		  text-align: center;
+      font-size: 105px;
 		}
 
 		/* Essa classe deixa os quadrados na mesma linha */
@@ -23,11 +30,7 @@
 		  clear: both;
 		}
 
-    .XO {
-      width: 15px;
-      height: 15px;
-      text-font: Fantasy;
-    }
+    
       
 		</style>
     
@@ -65,12 +68,12 @@
 		<script>
 	
 		// Tabuleiro representado por uma matriz
-		var board = [] 
+		var board = [];
 
 		// Variável dos turnos
 		var userTurn = true;
 
-    var compTurn = false
+    var compTurn = false;
       
 		// Essa função vai atualizar o tabuleiro no HTML
 		function updateBoard() {
@@ -104,15 +107,16 @@
   
       if(v.length > 0){
 
-      board[jogada] = "o";
+      board[jogada] = "𐤏";
         
       updateBoard();
         
       }
-      vitoria("o");
+      vitoria("𐤏");
       
 			// Turno do usuário //
 			userTurn = true;
+      compTurn = false;
      
 		}
 
@@ -123,13 +127,11 @@
       // verifcações de vitória horizontais //
       
      if((board[0] == jogador && board[1] == jogador && board[2] 
-     == jogador)|| (board[3] == jogador && board[4] == jogador
+     == jogador) || (board[3] == jogador && board[4] == jogador
      && board[5] == jogador) || (board[6] == jogador && board[7]
      == jogador && board[8] == jogador)){
-
-      // verificações de vitória verticais //
        
-        if(jogador == "X"){
+        if(jogador == "✕"){
          document.getElementById("Mensagem").innerText = "Fim de Jogo - Vitória";
      }
 
@@ -145,7 +147,7 @@
         == jogador && board[7] == jogador) || (board[2] == jogador
         && board[5] == jogador && board[8] == jogador)){
 
-       if(jogador == "X"){
+       if(jogador == "✕"){
          document.getElementById("Mensagem").innerText = "Fim de Jogo - Vitória";
      }
 
@@ -153,10 +155,13 @@
           document.getElementById("Mensagem").innerText = "Fim de Jogo - Derrota";
         } 
      }
+
+       // verificações de vitória verticais //
+          
       else if((board[0] == jogador && board[4] == jogador && board[8] == jogador) 
       || (board[2] == jogador && board[4] == jogador && board[6] == jogador)){
 
-         if(jogador == "X"){
+         if(jogador == "✕"){
          document.getElementById("Mensagem").innerText = "Fim de Jogo - Vitória";
      }
 
@@ -177,12 +182,13 @@
 			if (square.length == 0 && userTurn) {
         
 				// Atualiza o tabuleiro
-				board[i] = "X";
-        vitoria("X");
+				board[i] = "✕";
+        vitoria("✕");
 				updateBoard();
         
 				// Turno do computador
 				userTurn = false;
+        compTurn = true;
 				computerTurn();
         
 			}
