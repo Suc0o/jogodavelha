@@ -10,9 +10,12 @@
 		<style>
 
     body{
-
       background-color: #313338;
-      color: white;
+        color: white;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
     }
       
 		/* Essa classe cria um quadrado */
@@ -36,7 +39,7 @@
     
 	</head>
 	<body>
-    
+    <div>
 		<div class="coluna">
 			<div class="square" id="square1"></div>
 			<div class="square" id="square2"></div>
@@ -52,17 +55,19 @@
 			<div class="square" id="square8"></div>
 			<div class="square" id="square9"></div>
 		</div>
-    
+    </div>
     <br>
     <br>
-    
+
+    <div>
     <button onclick="startGame()">Jogue Novamente</button>
     
     <br>
     <br>
     
       <div id = "Mensagem"></div>
-
+    </div> 
+    
    <!-- Aqui abri a tag 'script' para -->
     
 		<script>
@@ -114,7 +119,7 @@
       }
       vitoria("𐤏");
       
-			// Turno do usuário //
+			// Turno do usuário
 			userTurn = true;
       compTurn = false;
      
@@ -124,56 +129,53 @@
       
     function vitoria(jogador){
 
-      // verifcações de vitória horizontais //
+      // verifcações de vitória horizontais 
       
      if((board[0] == jogador && board[1] == jogador && board[2] 
      == jogador) || (board[3] == jogador && board[4] == jogador
      && board[5] == jogador) || (board[6] == jogador && board[7]
      == jogador && board[8] == jogador)){
        
-        if(jogador == "✕"){
-         document.getElementById("Mensagem").innerText = "Fim de Jogo - Vitória";
-     }
-
-        else{
-          document.getElementById("Mensagem").innerText = "Fim de Jogo - Derrota";
-        } 
+        fimdejogo(jogador);
        
-     }   
-
-       // verificações de vitória diagonais //
+     }
+       
+       // verificações de vitória diagonais 
         else if((board[0] == jogador && board[3] == jogador &&
         board[6] == jogador) || (board[1] == jogador && board[4] 
         == jogador && board[7] == jogador) || (board[2] == jogador
         && board[5] == jogador && board[8] == jogador)){
 
-       if(jogador == "✕"){
-         document.getElementById("Mensagem").innerText = "Fim de Jogo - Vitória";
+        fimdejogo(jogador);
+          
      }
 
-        else{
-          document.getElementById("Mensagem").innerText = "Fim de Jogo - Derrota";
-        } 
-     }
-
-       // verificações de vitória verticais //
+       // verificações de vitória verticais 
           
       else if((board[0] == jogador && board[4] == jogador && board[8] == jogador) 
       || (board[2] == jogador && board[4] == jogador && board[6] == jogador)){
 
-         if(jogador == "✕"){
+        fimdejogo(jogador);
+      }
+      
+    }
+
+    // Loga a mensagem de vitória ou derrota 
+      
+    function fimdejogo(j){
+      
+       if(j == "✕"){
          document.getElementById("Mensagem").innerText = "Fim de Jogo - Vitória";
      }
 
         else{
           document.getElementById("Mensagem").innerText = "Fim de Jogo - Derrota";
         } 
-      }
-      
     }
 
-
-		function click(i) {
+    // função de turno do usuário
+      
+		function click(i){
       
 			// Pega o valor do quadrado
 			var square = board[i];
@@ -198,12 +200,12 @@
       
 		function startGame() {
       
-			// Limpa o tabuleiro no JS e no HTML
+		// Limpa o tabuleiro no JS e no HTML
       
 			board = ["", "", "", "", "", "", "", "", ""];
       updateBoard();
 
-     //limpa a mensagem de vitória ou derrota
+    //limpa a mensagem de vitória ou derrota
       
       document.getElementById("Mensagem").innerText = "";
 		}
