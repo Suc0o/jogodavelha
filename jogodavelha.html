@@ -110,10 +110,10 @@
       
       var jogada = 0;
       var v = vazio();
-      
+
+      if(v.length = 9){
+
       jogada = v[Math.floor(Math.random() * v.length)];
-  
-      if(v.length > 0 && document.getElementById("Mensagem").innerText.length == 0){
 
       board[jogada] = "𐤏";
         
@@ -122,8 +122,7 @@
       }
 
       vitoria("𐤏", v);
-
-      
+  
 	  // Turno do usuário
 	  userTurn = true;
       compTurn = false;
