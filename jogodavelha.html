@@ -74,6 +74,8 @@
     
 		<script>
 	
+	    var button = document.createElement("button");
+
 		// Tabuleiro representado por uma matriz
 		var board = [];
 
@@ -189,25 +191,25 @@
 
     // função de turno do usuário
       
-		function click(i){
+	function click(i){
       
-            v = vazio();
+        v = vazio();
 
-			// Pega o valor do quadrado
-			var square = board[i];
+		// Pega o valor do quadrado
+		var square = board[i];
 
-			// Verifica se o quadrado está vazio e se o turno é do usuário
-			if (square.length == 0 && userTurn) {
+		// Verifica se o quadrado está vazio e se o turno é do usuário
+		if (square.length == 0 && userTurn && document.getElementById("Mensagem").innerText.length == 0) {
         
-				// Atualiza o tabuleiro
-				board[i] = "✕";
-                vitoria("✕", v);
-				updateBoard();
+		// Atualiza o tabuleiro
+		board[i] = "✕";
+        vitoria("✕", v);
+		updateBoard();
         
-				// Turno do computador
-				userTurn = false;
-                compTurn = true;
-				computerTurn();
+		// Turno do computador
+		userTurn = false;
+        compTurn = true;
+		computerTurn();
         
 			}
 		}
@@ -218,8 +220,8 @@
       
 		// Limpa o tabuleiro no JS e no HTML
       
-			board = ["", "", "", "", "", "", "", "", ""];
-            updateBoard();
+		board = ["", "", "", "", "", "", "", "", ""];
+        updateBoard();
 
         //limpa a mensagem de vitória ou derrota
       
