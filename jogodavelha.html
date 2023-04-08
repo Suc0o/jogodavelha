@@ -1,3 +1,11 @@
+
+<!--
+
+    Autor: Vinícius Mancini Meneses de Miranda
+    Propósito: Projeto em resposta ao case em processo seletivo da empresa Mosaico.
+
+-->
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -12,12 +20,16 @@
     /* Definição dos atributos para o corpo do código HTML */
       
     body{
-      background-color: #313338;
-        color: white;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 10px;
+		background-color: #313338;
+		color: white;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		height: 100vh;
+		margin: 0;
+		padding: 0;
+		
     }
       
 	/* Essa classe cria um quadrado */
@@ -62,7 +74,7 @@
     <br>
 
     <div>
-    <button onclick="startGame()">Jogue Novamente</button>
+    <button onclick="startGame()" style="display: none;" id="botao">Jogue Novamente</button>
     
     <br>
     <br>
@@ -79,8 +91,6 @@
 
 		// Variável dos turnos
 		var userTurn = true;
-
-        var compTurn = false;
       
 		// Essa função vai atualizar o tabuleiro no HTML
 		function updateBoard() {
@@ -100,35 +110,185 @@
             vazios.push(i);
             }
         
-        }
+            }
 
-      return vazios;
+          return vazios;
 		}
 		
 	  // Função referente ao turno do computador
 	  function computerTurn() {
-      
-      var jogada = 0;
+		
       var v = vazio();
 
-      if(v.length > 0 && document.getElementById("Mensagem").innerText.length == 0){
-
-      jogada = v[Math.floor(Math.random() * v.length)];
-
-      board[jogada] = "𐤏";
-        
+      IA(v);
       updateBoard();
-        
-      }
-
       vitoria("𐤏", v);
   
 	  // Turno do usuário
 	  userTurn = true;
-      compTurn = false;
+
+	  console.log(v.length);
+		console.log(board);
       
-     
 	}
+
+    //Função referente a inteligência de contra-ataques do computador
+
+	function IA(vazio){
+
+      //Se o computador começar jogando
+
+	  var jogada = 0;
+
+      if(vazio.length  >= 8 && document.getElementById("Mensagem").innerText.length == 0){
+      jogada = vazio[Math.floor(Math.random() * vazio.length)];
+      board[jogada] = "𐤏";
+      return;
+
+	  }
+      
+      //contra-ataques
+
+	  else if(vazio.length < 8 && document.getElementById("Mensagem").innerText.length == 0){
+		
+      //contra-ataques horizontais
+
+      if(board[0] == "✕" && board[1] == "✕" && board[2] == ""){
+      board[2] = "𐤏";
+      return;
+	  }
+
+	  else if(board[1] == "✕" && board[2] == "✕" && board[0] == ""){
+	  board[0] = "𐤏";
+	  return;
+	  }
+
+	  else if(board[0] == "✕" && board[2] == "✕" && board[1] == ""){
+      board[1] = "𐤏";
+      return;
+	  }
+
+	  else if(board[3] == "✕" && board[4] == "✕" && board[5] == ""){
+      board[5] = "𐤏";
+      return;
+      }
+
+	  else if(board[4] == "✕" && board[5] == "✕" && board[3] == ""){
+      board[3] = "𐤏";
+      return;
+      }
+
+	  else if(board[3] == "✕" && board[5] == "✕" && board[4] == ""){
+      board[4] = "𐤏";
+      return;
+	  }
+
+	  else if(board[6] == "✕" && board[7] == "✕" && board[8] == ""){
+      board[8] = "𐤏";
+      return;
+      }
+
+	  else if(board[7] == "✕" && board[8] == "✕" && board[6] == ""){
+      board[6] = "𐤏";
+      return;
+      }
+
+	  else if(board[6] == "✕" && board[8] == "✕" && board[7] == ""){
+      board[7] = "𐤏";
+      return 0;
+	  }
+
+      //contra-ataques verticais
+
+	  else if(board[0] == "✕" && board[3] == "✕" && board[6] == ""){
+      board[6] = "𐤏";
+      return;
+      }
+
+	  else if(board[1] == "✕" && board[4] == "✕" && board[7] == ""){
+      board[7] = "𐤏";
+      return;
+      }
+
+	  else if(board[2] == "✕" && board[5] == "✕" && board[8] == ""){
+      board[8] = "𐤏";
+      return;
+      }
+
+	  else if(board[6] == "✕" && board[3] == "✕" && board[0] == ""){
+      board[0] = "𐤏";
+      return;
+	  }
+
+	  else if(board[7] == "✕" && board[4] == "✕" && board[1] == ""){
+      board[1] = "𐤏";
+      return;
+	  }
+
+	  else if(board[8] == "✕" && board[5] == "✕" && board[2] == ""){
+      board[2] = "𐤏";
+      return;
+	  }
+ 
+	  else if(board[0] == "✕" && board[6] == "✕" && board[3] == ""){
+      board[3] = "𐤏";
+      return;
+	  }
+
+	  else if(board[1] == "✕" && board[7] == "✕" && board[4] == ""){
+      board[4] = "𐤏";
+      return;
+	  }
+	  
+	  else if(board[2] == "✕" && board[8] == "✕" && board[5] == ""){
+      board[5] = "𐤏";
+      return;
+	  }
+ 
+      //contra-ataques diagonais
+
+	  else if(board[0] == "✕" && board[4] == "✕" && board[8] == ""){
+      board[8] = "𐤏";
+      return;
+	  }
+
+	  else if(board[8] == "✕" && board[4] == "✕" && board[0] == ""){
+      board[0] = "𐤏";
+      return;
+	  }
+
+	  else if(board[0] == "✕" && board[8] == "✕" && board[4] == ""){
+      board[4] = "𐤏";
+      return;
+	  }
+
+	  else if(board[2] == "✕" && board[4] == "✕" && board[6] == ""){
+      board[6] = "𐤏";
+      return;
+	  }
+
+	  else if(board[6] == "✕" && board[4] == "✕" && board[2] == ""){
+      board[2] = "𐤏";
+      return;
+	  }
+
+	  else if(board[6] == "✕" && board[2] == "✕" && board[4] == ""){
+      board[4] = "𐤏";
+      return;
+	  }
+
+      //se não satisfazer nenhuma dessa situações = se não existir jogada para contra-atacar
+
+	  else{
+	  jogada = vazio[Math.floor(Math.random() * vazio.length)];
+      board[jogada] = "𐤏";
+      return;
+	  }
+
+	  }
+
+    }  
+
 
     //essa função vai verificar se há uma vitória
       
@@ -169,6 +329,8 @@
 
       document.getElementById("Mensagem").innerText = "Fim de Jogo - Deu Velha!";
 
+	  document.getElementById("botao").style.display = "";
+
       }
 
     }
@@ -176,6 +338,8 @@
     // Loga a mensagem de vitória ou derrota 
       
     function fimdejogo(j){
+
+		document.getElementById("botao").style.display = "";
       
        if(j == "✕"){
          document.getElementById("Mensagem").innerText = "Fim de Jogo - Vitória";
@@ -200,16 +364,15 @@
         
 		// Atualiza o tabuleiro
 		board[i] = "✕";
-        vitoria("✕", v);
+        
 		updateBoard();
         
 		// Turno do computador
 		userTurn = false;
-        compTurn = true;
+        vitoria("✕", v);
 		computerTurn();
-        
 			}
-		}
+	}
 
 		// Função que inicia o jogo
       
@@ -223,7 +386,18 @@
         //limpa a mensagem de vitória ou derrota
       
         document.getElementById("Mensagem").innerText = "";
+		
+
+		//oculta o botão de jogar novamente
+
+		document.getElementById("botao").style.display = "none";
+
+		if(Math.random() > 0.5){
+			computerTurn();
 		}
+
+		}
+
 
 		// Registra os eventos do jogo
 		document.getElementById("quadrado0").onclick = function () { click(0) }
