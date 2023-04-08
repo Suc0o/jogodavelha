@@ -73,14 +73,14 @@
     <br>
     <br>
 
-    <div>
+    <center>
     <button onclick="startGame()" style="display: none;" id="botao">Jogue Novamente</button>
     
     <br>
     <br>
     
-    <div id = "Mensagem"></div>
-    </div> 
+    <div id = "Mensagem" style="font-family : FreeMono, monospace;"></div>
+    </center>
     
    <!-- Aqui abri a tag 'script' para trabalhar com o javascript -->
     
@@ -126,11 +126,16 @@
   
 	  // Turno do usuário
 	  userTurn = true;
-
-	  console.log(v.length);
-		console.log(board);
       
-	}
+	  // Força uma verificação de velha caso não tenha quadrados disponíveis
+
+      var v = vazio();
+      if (v.length == 0) {
+	  vitoria("", v);
+      
+	  }
+
+    }
 
     //Função referente a inteligência de contra-ataques do computador
 
