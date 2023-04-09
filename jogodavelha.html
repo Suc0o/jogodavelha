@@ -120,10 +120,12 @@
 		
       var v = vazio();
 
+
+	  setTimeout(function(){
       IA(v);
       updateBoard();
       vitoria("𐤏", v);
-  
+	  }, 500);
 	  // Turno do usuário
 	  userTurn = true;
       
