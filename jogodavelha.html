@@ -47,12 +47,26 @@
 		clear: both;
 		}
 
+	/*Esse ID personaliza o botão */
+	
+	#botao{
+
+		display: inline-block;
+		background-color: solid rgba(245, 245, 245, 0.726);
+		color: #313338;
+		padding: 10px 27px;
+		margin: 4px 2px;
+		font-family : FreeMono, monospace;
+		border: none;
+	}
+
     
       
 		</style>
     
 	</head>
 	<body>
+		<h4 id = "turno" style="font-family : FreeMono, monospace;"></h4>
     <div>
 		<div class="coluna">
 			<div class="quadrado" id="quadrado0"></div>
@@ -119,23 +133,26 @@
 	  function computerTurn() {
 		
       var v = vazio();
-
+      var timeout = 1000;
+	  document.getElementById("turno").innerText = "Vez do adversário";
 
 	  setTimeout(function(){
       IA(v);
       updateBoard();
       vitoria("𐤏", v);
-	  }, 500);
-	  // Turno do usuário
 	  userTurn = true;
-      
+	  document.getElementById("turno").innerText = "Sua vez";
+	  }, timeout);
+
 	  // Força uma verificação de velha caso não tenha quadrados disponíveis
 
+	  setTimeout(function(){
       var v = vazio();
       if (v.length == 0) {
 	  vitoria("", v);
-      
 	  }
+
+	}, timeout + 100);
 
     }
 
@@ -309,6 +326,7 @@
 	  board[7] == jogador && board[8] == jogador)){
        
       fimdejogo(jogador);
+	  
        
       }
        
@@ -319,7 +337,8 @@
       && board[5] == jogador && board[8] == jogador)){
 
       fimdejogo(jogador);
-          
+      
+
       }
 
       // verificações de vitória verticais 
@@ -327,16 +346,17 @@
       else if((board[0] == jogador && board[4] == jogador && board[8] == jogador) 
       || (board[2] == jogador && board[4] == jogador && board[6] == jogador)){
 
-      fimdejogo(jogador);
+      
       }
       
       // verificação de velha
 
-      if(vazio.length == 0 && document.getElementById("Mensagem").innerText.length == 0){
+      if(vazio.length == 0){
 
       document.getElementById("Mensagem").innerText = "Fim de Jogo - Deu Velha!";
 
 	  document.getElementById("botao").style.display = "";
+	  document.getElementById("turno").innerText = "";
 
       }
 
@@ -347,7 +367,7 @@
     function fimdejogo(j){
 
 		document.getElementById("botao").style.display = "";
-      
+		document.getElementById("turno").innerText = "";
        if(j == "✕"){
          document.getElementById("Mensagem").innerText = "Fim de Jogo - Vitória";
      }
@@ -403,6 +423,9 @@
 			computerTurn();
 		}
 
+		else {
+            document.getElementById("turno").innerText = "Sua vez";
+            }
 		}
 
 
