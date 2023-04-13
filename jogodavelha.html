@@ -141,17 +141,20 @@
       updateBoard();
       vitoria("𐤏", v);
 	  userTurn = true;
-	  document.getElementById("turno").innerText = "Sua vez";
+	  
 	  }, timeout);
 
 	  // Força uma verificação de velha caso não tenha quadrados disponíveis
 
 	  setTimeout(function(){
+		if(document.getElementById("Mensagem").length == 0){
       var v = vazio();
+	  document.getElementById("turno").innerText = "Sua vez";
       if (v.length == 0) {
-	  vitoria("", v);
+      vitoria("𐤏", v);
+	  
 	  }
-
+    }
 	}, timeout + 100);
 
     }
@@ -330,7 +333,7 @@
        
       }
        
-      // verificações de vitória diagonais 
+      // verificações de vitória verticais 
       else if((board[0] == jogador && board[3] == jogador &&
       board[6] == jogador) || (board[1] == jogador && board[4] 
       == jogador && board[7] == jogador) || (board[2] == jogador
@@ -341,17 +344,17 @@
 
       }
 
-      // verificações de vitória verticais 
+      // verificações de vitória  diagonais
           
       else if((board[0] == jogador && board[4] == jogador && board[8] == jogador) 
       || (board[2] == jogador && board[4] == jogador && board[6] == jogador)){
 
-      
+		fimdejogo(jogador);
       }
       
       // verificação de velha
 
-      if(vazio.length == 0){
+      if(vazio.length == 0 && document.getElementById("Mensagem").innerText.length == 0){
 
       document.getElementById("Mensagem").innerText = "Fim de Jogo - Deu Velha!";
 
@@ -368,13 +371,14 @@
 
 		document.getElementById("botao").style.display = "";
 		document.getElementById("turno").innerText = "";
+
        if(j == "✕"){
          document.getElementById("Mensagem").innerText = "Fim de Jogo - Vitória";
      }
 
-        else{
-          document.getElementById("Mensagem").innerText = "Fim de Jogo - Derrota";
-        } 
+       else if(j == "𐤏"){
+         document.getElementById("Mensagem").innerText = "Fim de Jogo - Derrota";
+     } 
     }
 
     // função de turno do usuário
@@ -382,11 +386,13 @@
 	function click(i){
       
         v = vazio();
+		vitoria("𐤏", v);
+		vitoria("✕", v);
 
 		// Pega o valor do quadrado
 		var square = board[i];
 
-		// Verifica se o quadrado está vazio e se o turno é do usuário
+		// Verifica se o quadrado está vazio, se o turno é do usuário e se o jogo ja acabou
 		if (square.length == 0 && userTurn && document.getElementById("Mensagem").innerText.length == 0) {
         
 		// Atualiza o tabuleiro
@@ -397,7 +403,10 @@
 		// Turno do computador
 		userTurn = false;
         vitoria("✕", v);
+
+		if(document.getElementById("Mensagem").innerText.length == 0){
 		computerTurn();
+		             }
 			}
 	}
 
