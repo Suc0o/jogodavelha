@@ -1,9 +1,9 @@
 
 <!--
 
-    Autor: Vinícius Mancini Meneses de Miranda
-    Propósito: Projeto em resposta ao case em processo seletivo da empresa Mosaico.
-
+    ropósito: Projeto em resposta ao case em processo seletivo da empresa Mosaico.
+Autor: Vinícius Mancini Meneses de Miranda
+    P
 -->
 
 <!DOCTYPE html>
@@ -147,7 +147,7 @@
 	  // Força uma verificação de velha caso não tenha quadrados disponíveis
 
 	  setTimeout(function(){
-		if(document.getElementById("Mensagem").length == 0){
+		if(document.getElementById("Mensagem").innerText.length == 0){
       var v = vazio();
 	  document.getElementById("turno").innerText = "Sua vez";
       if (v.length == 0) {
@@ -404,9 +404,8 @@
 		userTurn = false;
         vitoria("✕", v);
 
-		if(document.getElementById("Mensagem").innerText.length == 0){
 		computerTurn();
-		             }
+		             
 			}
 	}
 
