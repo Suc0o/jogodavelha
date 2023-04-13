@@ -58,8 +58,21 @@ Autor: Vinícius Mancini Meneses de Miranda
 		margin: 4px 2px;
 		font-family : FreeMono, monospace;
 		border: none;
+        cursor:pointer;
+        
 	}
 
+    #botao:hover {
+      background-color:#31333896;
+      transition: 0.7s;
+      color:rgba(245, 245, 245, 0.726);
+  }
+
+    .quadrado:hover{
+      background-color:#7e7e8036;
+      transition: 0.5s;
+      color:rgba(245, 245, 245, 0.726);
+    }
     
       
 		</style>
@@ -88,7 +101,7 @@ Autor: Vinícius Mancini Meneses de Miranda
     <br>
 
     <center>
-    <button onclick="startGame()" style="display: none;" id="botao">Jogue Novamente</button>
+    <button onclick="startGame()" style="display: none;" id="botao">Jogar Novamente</button>
     
     <br>
     <br>
@@ -135,6 +148,7 @@ Autor: Vinícius Mancini Meneses de Miranda
       var v = vazio();
       var timeout = 1000;
 	  document.getElementById("turno").innerText = "Vez do adversário";
+      vitoria("𐤏", v);
 
 	  setTimeout(function(){
       IA(v);
