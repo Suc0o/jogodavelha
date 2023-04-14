@@ -1,8 +1,8 @@
 
 <!--
+
     Autor: Vinícius Mancini Meneses de Miranda
     Propósito: Projeto em resposta ao case em processo seletivo da empresa Mosaico.
-
     
 -->
 
@@ -148,7 +148,7 @@
       var v = vazio();
       var timeout = 1000;
 	  document.getElementById("turno").innerText = "Vez do adversário";
-      vitoria("𐤏", v);
+      vitoria("✕", v);
 
 	  setTimeout(function(){
       IA(v);
@@ -371,7 +371,6 @@
       if(vazio.length == 0 && document.getElementById("Mensagem").innerText.length == 0){
 
       document.getElementById("Mensagem").innerText = "Fim de Jogo - Deu Velha!";
-
 	  document.getElementById("botao").style.display = "";
 	  document.getElementById("turno").innerText = "";
 
@@ -400,8 +399,8 @@
 	function click(i){
       
         v = vazio();
+        
 		vitoria("𐤏", v);
-		vitoria("✕", v);
 
 		// Pega o valor do quadrado
 		var square = board[i];
