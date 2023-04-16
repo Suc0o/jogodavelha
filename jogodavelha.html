@@ -190,8 +190,12 @@
       let v = [];
       let j = 0;
       for (let k = 0; k < 3; k++) {
-        if (board[vet[i[k]]] !== "𐤏" && board[vet[i][k]] !== "✕") {
-          v.push(vet[i[k]]);
+        if (board[vet[i][k]] !== "𐤏" && board[vet[i][k]] !== "✕") {
+          v.push(vet[i][k]);
+		  if(i == 8 && k == 3 && v.length == 0){
+			jogada = vazio[Math.floor(Math.random() * vazio.length)];
+            board[jogada] = "𐤏";
+		  }
         }
       }
       if (v.length === 1) {
