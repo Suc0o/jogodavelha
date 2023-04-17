@@ -133,7 +133,7 @@
 
             for(var i = 0; i < board.length; i++){
 
-            if(board[i].length == 0){
+            if(board[i] == ""){
             vazios.push(i);
             }
         
@@ -144,7 +144,7 @@
 		
 	  // Função referente ao turno do computador
 	  function computerTurn() {
-		
+		console.log(board);
       var v = vazio();
       var timeout = 1000;
 	  document.getElementById("turno").innerText = "Vez do adversário";
@@ -175,39 +175,53 @@
 
     //Função referente a inteligência de contra-ataques do computador
 
-	function IA(vazio) {
+	function IA(vazio){
 
-    let jogada = 0;
-    let vet = [[0, 4, 8], [2, 4, 6], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 1, 2], [3, 4, 5], [6, 7, 8]];
+      //Se o computador começar jogando
 
-    if (vazio.length >= 8 && document.getElementById("Mensagem").innerText.length == 0) {
-    jogada = vazio[Math.floor(Math.random() * vazio.length)];
-    board[jogada] = "𐤏";
-    }
+	  let jogada = 0;
 
-    else if (vazio.length < 8 && document.getElementById("Mensagem").innerText.length == 0) {
-    for (let i = 0; i < 8; i++) {
-      let v = [];
-      let j = 0;
-      for (let k = 0; k < 3; k++) {
-        if (board[vet[i][k]] !== "𐤏" && board[vet[i][k]] !== "✕") {
-          v.push(vet[i][k]);
-		  if(i == 8 && k == 3 && v.length == 0){
+      if(vazio.length  >= 8 && document.getElementById("Mensagem").innerText.length == 0){
+      jogada = vazio[Math.floor(Math.random() * vazio.length)];
+      board[jogada] = "𐤏";
+	  console.log("rand");
+	  }
+      
+      //contra-ataques
+
+	  else if(vazio.length < 8 && document.getElementById("Mensagem").innerText.length == 0){
+
+	  let vet = [[0, 4, 8], [2, 4, 6], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 1, 2], [3, 4, 5], [6, 7, 8], "fim"];	 
+	  var v = [];
+
+       for(var i = 0; i < 9; i++){
+
+		if(v.length == 1){
+	    board[v[0]] = "𐤏";
+		console.log("contra");
+		break;
+	    }
+		
+		v = [];
+
+		for(var j = 0; j < 3; j++){
+		 if(board[vet[i][j]] == ""){
+		    v.push(vet[i][j]);
+		    }
+		 
+		 else if(vet[i][j] == "fim"){
 			jogada = vazio[Math.floor(Math.random() * vazio.length)];
             board[jogada] = "𐤏";
-		  }
-        }
-      }
-      if (v.length === 1) {
-        board[v[0]] = "𐤏";
-        break;
-      }
-    }
-  }
+			return;
+		 }
+	    }
+        
+		
+	    
+	 }
+
+   }  
 }
-
-
-
 
     //essa função vai verificar se há uma vitória
       
@@ -233,7 +247,6 @@
 
       fimdejogo(jogador);
       
-
       }
 
       // verificações de vitória  diagonais
@@ -277,8 +290,6 @@
 	function click(i){
       
         v = vazio();
-        
-		vitoria("𐤏", v);
 
 		// Pega o valor do quadrado
 		var square = board[i];
